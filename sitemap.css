@@ -1,0 +1,121 @@
+/* SITEMAP - Pramod Hanu */
+/* might have to update the body class depending on your theme */
+body.sitemap .ywm-sitemap ul {display: flex;display:flex;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: -ms-flexbox;-webkit-flex-wrap: wrap; /*flex-flow: row wrap;*/flex-flow: column wrap;align-content: flex-start;justify-content: space-between;align-items: flex-start;}
+body.sitemap .ywm-sitemap ul li {list-style:none;padding-right: 1rem;font-size:1rem;line-height:140%;}
+body.sitemap .ywm-sitemap ul.one-col li {flex: 1 0 100%;}
+body.sitemap .ywm-sitemap ul.two-col li {flex: 1 0 49%;}
+body.sitemap .ywm-sitemap ul.three-col li {flex: 1 0 32%;}
+body.sitemap .ywm-sitemap ul li a {color:#333;}
+.container {
+    max-width: 1200px;
+}
+
+@media screen and (max-width: 480px) {
+ .ywm-sitemap ul {max-height:100% !important;flex-wrap: nowrap;}
+}
+
+@media screen and (min-width: 480px) and (max-width:768px) {
+ .ywm-sitemap ul {max-height:100% !important;flex-wrap: nowrap;}
+}
+/*--------------------------------------- sitemap page css start----------------------------------------------*/
+.section-header--left span label{
+  color: #29b1df;
+}
+.section-header--left span label:after{
+    content: "";
+    position: relative;
+    width: 75%;
+    height: 3px;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    background: #29b1df;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
+
+}
+.sitemap_title{
+  margin:0;
+}
+.sitemap_title span label{
+  color:#29b1df;
+}
+.sitemap_title span label:after{
+    content: "";
+    position: relative;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    right: 0;
+    background: #29b1df;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
+
+}
+.diamond{
+    counter-reset: list-counter;
+    list-style: none;
+}
+.diamond li{
+    margin: 0.5em 0;  
+   
+}
+.diamond li a{
+   position:relative;
+   padding-left: 10px;
+   font-size: 14px;
+   font-weight: 600;
+}
+.diamond li a:hover{
+  color:#494848;
+}
+.diamond li a:before{
+    content: " ";
+    position:absolute;
+    left: -10px;
+    top: 6px;
+    transform: rotate(45deg);
+    text-transform: rotate(90deg);
+    width: 10px;
+    height: 10px;
+    padding: .3em;
+    margin-right: 1em;
+    /* border: .1em solid #29b1df; */
+    background: #e6343b;
+    transition: all 0.6s ease;
+}
+.diamond li a:hover:before{
+      transform: rotate(270deg);
+}
+.pdptwi-col .pdptwi-img img{
+  aspect-ratio: unset!important;
+}
+.grid-uniform {
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 20px;
+    margin-bottom:35px;
+}
+.grid-uniform .grid-item.sitemap{
+  padding-left:15px;
+}
+.cart__items .d-flex.flex-column p{
+    margin-bottom: 0px;
+}
+@media screen and (max-width: 991px) {
+  .grid-uniform {
+    grid-template-columns: 48% 48%;
+    }
+}
+@media screen and (max-width: 767px) {
+  .grid-uniform {
+    grid-template-columns: 100%;
+}
+}
+/*--------------------------------------- sitemap page  css end----------------------------------------------*/

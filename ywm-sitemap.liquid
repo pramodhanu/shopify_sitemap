@@ -1,0 +1,201 @@
+<div class="{{ section.id }} {{ section.settings.image_align }} {{section.settings.css_class }} {{ section.settings.striped }} {{ section.settings.flipped }}" data-section-id="{{ section.id }}" {{ block.shopify_attributes }}>
+
+{% case section.settings.columns %}
+{% when 4 %}
+{%- assign col_class = 'four-col' -%}
+{% assign collection_height = collections.size | times: 28 | divided_by: 3.7 %} 
+{% assign product_height = collections.all.products.size | times: 28 | divided_by: 3.7 %} 
+{% when 3 %}
+{%- assign col_class = 'three-col' -%}
+{% assign collection_height = collections.size | times: 28 | divided_by: 2.7 %} 
+{% assign product_height = collections.all.products.size | times: 28 | divided_by: 2.7 %} 
+{% when 2 %}
+{%- assign col_class = 'two-col' -%}
+{% assign collection_height = collections.size | times: 28 | divided_by: 1.7 %}
+{% assign product_height = collections.all.products.size | times: 110 %}
+{% when 1 %}
+{%- assign col_class = 'one-col' -%}
+{% assign collection_height = '800' %} 
+{% assign product_height = '800' %}
+{% else %}
+{%- assign col_class = '' -%}
+{% endcase %}
+
+
+
+{% if section.settings.title != blank and section.settings.title_enable == true %}
+<div class="section-header">
+<h2 class="section-header--left h1 text-center"><span> <label> {{ section.settings.title | escape }} </label></span></h2>
+</div>
+{% endif %}
+{% if section.settings.section_intro != blank %}<p class="max-600 text-center">{{ section.settings.section_intro | escape }}</p><br/>{% endif %}
+
+<div class="grid-uniform"> 
+<div class="grid-item sitemap">
+
+{% if section.settings.collection_enable == true %}
+
+<h2 class="text-left sitemap_title" ><span> <label>{{ 'shopify.page_titles.collections' | t }} </label></span></h2> 
+<ul class="text-left diamond {{col_class }}" > <!-- style="max-height:{{ collection_height }}px;" -->
+
+{% for c in collections %}
+<li class="items">
+<a href="{{ c.url }}"{% if section.settings.new_window == true %} {% endif %}>{{ c.title | capitalize }}</a>
+</li>
+{% endfor %}
+</ul>
+</div>  
+<div class="grid-item sitemap">
+{% if section.settings.product_enable == true %}
+
+<h2 class="text-left sitemap_title"><span> <label>{{ 'shopify.page_titles.products' | t }} </label></span></h2> 
+ <ul class="text-left diamond {{col_class }}" > <!-- style="max-height:{{ product_height }}px;" -->
+{% paginate collections.all.products by 1000 %}
+{% for product in collections.all.products %}
+<li class="items">
+<a href="{{ product.url }}">{{ product.title | capitalize }}</a>
+</li>
+{% endfor %}
+{% endpaginate %}
+</ul> 
+{% endif %}
+{% endif %} 
+</div>
+<div class="grid-item sitemap">  
+{% if section.settings.vendor_enable == true %}
+  
+<h2 class="text-left sitemap_title"><span> <label> Brands </label></span></h2>
+<ul class="text-left diamond {{col_class }}">
+{% for product_vendor in shop.vendors %}
+<li class="items">{{ product_vendor | link_to_vendor }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+</div>
+<div class="grid-item sitemap">
+{% if section.settings.page_enable == true %}
+
+<h2 class="text-left sitemap_title"><span> <label> Pages </label></span></h2> 
+<ul class="text-left diamond {{col_class }}" id="page-list">
+{% for page in pages %}  
+  <li class="items"><a href="{{ page.url }}">{{ page.title }}</a></li>
+{% endfor %}
+  </ul>
+{% endif %}
+</div>
+<div class="grid-item sitemap">
+{% if section.settings.blog_enable == true %}
+
+<h2 class="text-left sitemap_title"><span> <label>Blogs<span> <label></h2> 
+  <ul class="text-left diamond {{col_class }}">
+{% assign cats = "top-stories,news,entertainment,whaterver-your-blog-is-called" | split: ',' %}
+{% for cat in cats %}
+	{% for article in blogs[cat].articles %}
+      <li class="items"><a href="{{ article.url }}">{{ article.title }}</a></li>
+  	{% endfor %} 
+{% endfor %}
+  </ul>
+{% endif %}  
+
+
+</div>
+</div>
+
+
+
+
+{% schema %}
+{
+"name": "Sitemap",
+"class": "index-section",
+"tag": "section",
+"max_blocks": 4,
+"settings": [
+{
+"type": "checkbox",
+"id": "title_enable",
+"label": "Show header",
+"default": true
+},
+{
+"type": "text",
+"id": "title",
+"label": "Heading",
+"default": "Title for Sitemap Section"
+},
+{
+"type": "html",
+"id": "section_intro",
+"label": "Text Above Sitemap"
+},
+{
+"type": "range",
+"id": "columns",
+"label": "Number of Columns",
+"min": 1,
+"max": 4,
+"step": 1,
+"default": 1
+}, 
+{
+"type": "checkbox",
+"id": "collection_enable",
+"label": "Include Collections",
+"default": false,
+"info": "Output list of collections"
+}, 
+{
+"type": "checkbox",
+"id": "product_enable",
+"label": "Include Products",
+"default": false,
+"info": "Output list of products under each section"
+}, 
+{
+"type": "checkbox",
+"id": "vendor_enable",
+"label": "Include Brands",
+"default": false,
+"info": "Output list of brand pages"
+}, 
+{
+"type": "checkbox",
+"id": "page_enable",
+"label": "Include Pages",
+"default": false,
+"info": "Output list of Shopify pages"
+}, 
+{
+"type": "checkbox",
+"id": "blog_enable",
+"label": "Include Blogs",
+"default": false,
+"info": "Output list of Shopify blogs"
+},  
+{
+"type": "html",
+"id": "section_outro",
+"label": "Text Below Sitemap"
+},
+{
+"type": "checkbox",
+"id": "new_window",
+"label": "Open links in new window",
+"default": false
+}, 
+{
+"type": "text",
+"id": "css_class",
+"label": "CSS Class for Section"
+}
+],
+"blocks": [],
+"presets": [
+{
+"name": "Sitemap",
+"category": "Text",
+"blocks": []
+}
+]
+}
+{% endschema %}
